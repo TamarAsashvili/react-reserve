@@ -6,7 +6,8 @@ import baseUrl from '../utils/baseUrl'
 
 
 function Home({ products }) {
-  console.log(products)
+  //useRouter()
+
   return (
     <ProductList products={products} />
 
