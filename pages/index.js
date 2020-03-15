@@ -19,9 +19,8 @@ function Home({ products }) {
 Home.getInitialProps = async () => {
 
   //fetch data on server
-  //const url = `${baseUrl}/api/products`;
+  const url = `${baseUrl}/api/products`;
   //const payload = { params: { page, size } }
-  const url = 'http://localhost:3000/api/products';
   const response = await axios.get(url);
 
   // return response data as an object
