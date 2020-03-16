@@ -2,7 +2,6 @@ import { Menu, Container, Image, Icon } from 'semantic-ui-react';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
-//import { handleLogout } from '../../utils/auth'
 
 
 Router.onRouteChangeStart = () => NProgress.start();
@@ -13,16 +12,14 @@ Router.onRouteChangeError = () => NProgress.done();
 function Header() {
   const user = true;
   const router = useRouter();
-  // const isRoot = user && user.role === 'root'
-  // const isAdmin = user && user.role === 'admin'
-  //const isRootOrAdmin = isAdmin || isRoot
 
   function isActive(route) {
     return route === router.pathname;
   }
 
   return (
-    <Menu stackable fluid={true} id="menu" inverted  >
+    <Menu stackable id="menu" inverted  >
+
       <Container text>'
         <Link href='/'>
           <Menu.Item header active={isActive('/')}>
@@ -31,9 +28,8 @@ function Header() {
           </Menu.Item>
         </Link>
 
-
-        <Link href='/cart' active={isActive('/cart')}>
-          <Menu.Item header >
+        <Link href='/cart' >
+          <Menu.Item header active={isActive('/cart')}>
             <Icon name='cart' size='large' /> Cart
           </Menu.Item>
         </Link>

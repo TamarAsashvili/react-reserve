@@ -2,20 +2,23 @@ import React from 'react'
 import { Header, Button, Modal } from 'semantic-ui-react'
 import axios from 'axios';
 import baseUrl from '../../utils/baseUrl';
+import Router, { useRouter } from 'next/router';
 
 function ProductAttributes({ description, _id, }) {
-  const [modal, setModal] = React.useState(false)
+  const [modal, setModal] = React.useState(false);
+  const router = useRouter()
 
 
-  function handleDelete() {
-    const url = `${baseUrl}/api/product`
+  async function handleDelete() {
+    const url = `${baseUrl}/api/product`;
     const payload = { params: { _id } }
-    axios.delete(url, payload)
+    await axios.delete(url, payload)
+    router.push('/');
+
   }
 
   return <>
-    <Header as='h3'>
-      About this ProductAttributes    </Header>
+    <Header as='h3'>      About this ProductAttributes </Header>
     <p>{description}</p>
     <Button
       icon='trash alternate outline'
@@ -30,13 +33,14 @@ function ProductAttributes({ description, _id, }) {
       </Modal.Content>
       <Modal.Actions>
         <Button
-          content='Cansel'
+          content='Cancel'
           onClick={() => setModal(false)}
         />
         <Button
           negative
           icon='trash'
           content='Delete'
+          labelPosition='right'
           onClick={handleDelete}
         />
       </Modal.Actions>
