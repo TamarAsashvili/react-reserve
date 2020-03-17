@@ -2,7 +2,7 @@ import React from 'react'
 import { Header, Button, Modal } from 'semantic-ui-react'
 import axios from 'axios';
 import baseUrl from '../../utils/baseUrl';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 
 function ProductAttributes({ description, _id, }) {
   const [modal, setModal] = React.useState(false);
