@@ -35,17 +35,25 @@ async function handleGetRequest(req, res) {
 
 async function handelPostRequest(req, res) {
     const { name, price, description, mediaUrl } = req.body
-    if (!name || !price || !description || !mediaUrl) {
-        return res.status(422).send('Product missing one or more fields')
+
+    try {
+        if (!name || !price || !description || !mediaUrl) {
+            return res.status(422).send('Product missing one or more fields')
+        }
+
+        const product = await new Product({
+            name,
+            price,
+            description,
+            mediaUrl
+        }).save()
+        res.status(201).json(product)
+    }
+    catch (error) {
+        console.log(error)
+        res.status(500).send('Error created products and server error')
     }
 
-    const product = await new Product({
-        name,
-        price,
-        description,
-        mediaUrl
-    }).save()
-    res.status(201).json(product)
 
 }
 
