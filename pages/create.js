@@ -1,5 +1,7 @@
 import React from 'react'
 import { Form, Input, TextArea, Icon, Button, Image, Message, Header } from "semantic-ui-react";
+import axios from 'axios';
+import baseUrl from '../utils/baseUrl';
 
 const INITIAL_PRODUCT = {
   name: '',
@@ -12,6 +14,7 @@ function CreateProduct() {
   const [product, setProduct] = React.useState(INITIAL_PRODUCT);
   const [mediaPreview, setMediaPreview] = React.useState('')
   const [success, setSuccess] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   function handleChange(event) {
     const { name, value, files } = event.target;
@@ -24,9 +27,34 @@ function CreateProduct() {
     }
   }
 
-  function handleSubmit(event) {
+
+  async function handleImageUpload() {
+    const data = new FormData()
+    data.append('file', product.media)
+    data.append('upload_preset', 'tamuna')
+    data.append('cloud_name', 'dalfzwoaq')
+    const response = await axios.post
+      (process.env.CLOUDINARY_URL, data)
+    const mediaUrl = response.data.url
+    return mediaUrl;
+  }
+
+
+
+
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(product)
+    setLoading(true)
+    const mediaUrl = await handleImageUpload()
+    console.log({ mediaUrl })
+    const url = `${baseUrl}/api/product`
+    const { name, price, description } = product
+    const payload = { name, price, description, mediaUrl };
+    const response = await axios.post(url, payload);
+
+    console.log({ response })
+    setLoading(false)
     setProduct(INITIAL_PRODUCT)
     setSuccess(true)
 
@@ -37,7 +65,7 @@ function CreateProduct() {
     <Header as='h2' block >
       <Icon name='add' color='orange' />
         Create New Product
-      <Form success={success} onSubmit={handleSubmit}>
+      <Form loading={loading} success={success} onSubmit={handleSubmit}>
         <Message
           success
           icon='check'
@@ -74,6 +102,7 @@ function CreateProduct() {
             content='Select Image'
             onChange={handleChange}
 
+
           />
 
         </Form.Group>
@@ -88,7 +117,7 @@ function CreateProduct() {
         />
         <Form.Field
           control={Button}
-          //  disabled={disabled || loading}
+          disabled={loading}
           color='blue'
           icon='pencil alternate'
           content='Submit'

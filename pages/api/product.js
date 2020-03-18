@@ -9,9 +9,14 @@ export default async (req, res) => {
             await handleGetRequest(req, res);
             break;
 
+        case "POST":
+            await handelPostRequest(req, res);
+            break;
+
         case "DELETE":
             await handleDeleteRequest(req, res);
             break;
+
         default:
             res.status(405).send(`Method ${req.method} not allowed`)
             break;
@@ -28,7 +33,21 @@ async function handleGetRequest(req, res) {
 }
 
 
+async function handelPostRequest(req, res) {
+    const { name, price, description, mediaUrl } = req.body
+    if (!name || !price || !description || !mediaUrl) {
+        return res.status(422).send('Product missing one or more fields')
+    }
 
+    const product = await new Product({
+        name,
+        price,
+        description,
+        mediaUrl
+    }).save()
+    res.status(201).json(product)
+
+}
 
 
 async function handleDeleteRequest(req, res) {
