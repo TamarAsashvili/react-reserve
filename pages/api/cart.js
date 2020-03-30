@@ -17,9 +17,6 @@ export default async (req, res) => {
             await handlePutRequest(req, res);
             break;
 
-        case "DELETE":
-            await handleDeleteRequest(req, res);
-            break;
 
         default:
             res.status(405).send(`Method ${req.method} not allowed`);
@@ -62,7 +59,7 @@ async function handlePutRequest(req, res) {
         // check if product olready exists in cart
         const productExists = cart.products.some(doc => ObjectId(productId).equals(doc.product))
 
-        // if so, incriment cuantity (by number of provided request)
+        // if so, incriment cuantity (by number of provided to  request)
 
         if (productExists) {
             await Cart.findOneAndUpdate(
