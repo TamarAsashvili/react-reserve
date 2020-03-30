@@ -10,12 +10,13 @@ import catchErrors from '../utils/catchErrors'
 
 
 
-function Cart({ products }) {
-  console.log(products)
+function Cart({ products, user }) {
+
+
   return (
     <>
       <Segment >
-        <CartItemList />
+        <CartItemList user={user} products={products} />
         <CartSummary />
       </Segment>
     </>
