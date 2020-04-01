@@ -17,7 +17,7 @@ function Cart({ products, user }) {
     <>
       <Segment >
         <CartItemList user={user} products={products} />
-        <CartSummary />
+        <CartSummary products={products} />
       </Segment>
     </>
   )
