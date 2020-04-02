@@ -1,4 +1,5 @@
-import { Header, Segment, Icon, Label } from 'semantic-ui-react'
+import { Header, Segment, Icon, Label } from 'semantic-ui-react';
+import formatDate from '../../utils/formatDate'
 
 function AccountHeader({ role, createdAt, email, name }) {
   return <>
@@ -14,7 +15,7 @@ function AccountHeader({ role, createdAt, email, name }) {
         <Icon name='user' />
         {name}
         <Header.Subheader>{email}</Header.Subheader>
-        <Header.Subheader>Joined {createdAt}</Header.Subheader>
+        <Header.Subheader>Joined {formatDate(createdAt)}</Header.Subheader>
 
       </Header>
     </Segment>
