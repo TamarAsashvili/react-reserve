@@ -52,9 +52,28 @@ function AccountPermissions() {
 function UserPermssion({ user }) {
   const [admin, setAdmin] = React.useState(user.role === 'admin')
 
+  const isFirstRun = React.useRef(true)
+
+  React.useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
+    }
+    updatePermission()
+  }, [admin])
+
   function handleChangePermission() {
     setAdmin(prevState => !prevState)
   }
+
+  async function updatePermission() {
+    const url = `${baseUrl}/api/account`
+    const payload = { _id: user._id, role: admin ? 'admin' : 'user' }
+    await axios.put(url, payload)
+
+  }
+
+
 
   return (
     <Table.Row>
