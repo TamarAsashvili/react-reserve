@@ -48,18 +48,22 @@ export default async (req, res) => {
             });
         }
 
-        const customer = (isExistingCustomer && prevCustomer.data[0].id) || newCustomer.id;
+        const customer =
+            (isExistingCustomer && prevCustomer.data[0].id) || newCustomer.id;
         // 6. Create charge with total, send reseipt email
-        const charge = await stripe.charges.create({
-            currency: "usd",
-            amount: stripeTotal,
-            receipt_email: paymentData.email,
-            customer,
-            description: `Checkout | ${paymentData.email} | ${paymentData.id}`
-        }, {
+        const charge = await stripe.charges.create(
+            {
+                currency: "usd",
+                amount: stripeTotal,
+                receipt_email: paymentData.email,
+                customer,
+                description: `Checkout | ${paymentData.email} | $
+                {paymentData.id}`
+            },
+            {
 
-            idempotency_key: uuidv4()
-        }
+                idempotency_key: uuidv4()
+            }
         );
 
         // 7. add order data to database
@@ -72,17 +76,12 @@ export default async (req, res) => {
 
 
         // 8. Clear products in cart
-        await Cart.findOneAndUpdate(
-            { _id: cart._id },
-            { $set: { products: [] } }
-        )
+        await Cart.findOneAndUpdate({ _id: cart._id }, { $set: { products: [] } });
         // 9. send back success (200 ) response
-        res.status(200).send("Checkout successful")
-
-
+        res.status(200).send("Checkout successful");
 
     } catch (error) {
         console.error(error)
         res.status(500).send('Error processing mmmmmmmm charge')
     }
-}
+};

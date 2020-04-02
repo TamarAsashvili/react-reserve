@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 
 function CartItemList({ products, user, handleRemoveFromCart, success }) {
   const router = useRouter()
-  function mapCartProductsToItems(products) {
 
+  function mapCartProductsToItems(products) {
     return products.map(p => ({
       childKey: p.product._id,
       header: (
@@ -24,10 +24,7 @@ function CartItemList({ products, user, handleRemoveFromCart, success }) {
           onClick={() => handleRemoveFromCart(p.product._id)}
         />
       )
-
-
-    }))
-
+    }));
   }
 
   if (success) {
@@ -59,7 +56,4 @@ function CartItemList({ products, user, handleRemoveFromCart, success }) {
   }
   return <Item.Group divided items={mapCartProductsToItems(products)} />
 }
-
-
-
 export default CartItemList;
