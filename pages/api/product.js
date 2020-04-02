@@ -28,7 +28,7 @@ export default async (req, res) => {
 
 async function handleGetRequest(req, res) {
     const { _id } = req.query;
-    const product = await Product.findOne({ _id });
+    const product = await Product.findOne({ _id })
     res.status(200).json(product);
 }
 
