@@ -42,7 +42,7 @@ async function handleGetRequest(req, res) {
 
         res.status(200).json(cart.products)
     } catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(403).send("Please log in again")
     }
 }
@@ -79,7 +79,7 @@ async function handlePutRequest(req, res) {
         }
         res.status(200).send("cart updated")
     } catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(403).send("Please log in again")
     }
 }
@@ -101,7 +101,7 @@ async function handleDeleteRequest(req, res) {
         })
         res.status(200).json(cart.products);
     } catch (error) {
-        console.log(error)
+        console.error(error)
         res.status(403).send("Please log in again")
     }
 }
