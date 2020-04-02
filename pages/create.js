@@ -31,7 +31,6 @@ function CreateProduct() {
       setProduct(prevState => ({ ...prevState, media: files[0] }));
       setMediaPreview(window.URL.createObjectURL(files[0]))
     } else {
-
       setProduct((prevState) => ({ ...prevState, [name]: value }));
     }
   }
@@ -47,9 +46,6 @@ function CreateProduct() {
     const mediaUrl = response.data.url
     return mediaUrl;
   }
-
-
-
 
 
   async function handleSubmit(event) {
@@ -85,7 +81,6 @@ function CreateProduct() {
       <Form loading={loading} error={Boolean(error)} success={success} onSubmit={handleSubmit}>
         <Message
           error
-
           header='Oops!'
           content={error}
         />
@@ -125,8 +120,6 @@ function CreateProduct() {
             type='file'
             content='Select Image'
             onChange={handleChange}
-
-
           />
 
         </Form.Group>

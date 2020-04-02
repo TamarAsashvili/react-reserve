@@ -2,7 +2,7 @@ import { Header, Segment, Icon, Label } from 'semantic-ui-react'
 
 function AccountHeader({ role, createdAt, email, name }) {
   return <>
-    <Segment secondary inverted color='violet'>
+    <Segment secondary inverted color='orange'>
       <Label color='teal'
         size='large'
         ribbon
